@@ -52,7 +52,14 @@ jobs:
             sudo usermod -aG docker $USER
             echo "Docker installed successfully"
             echo "Logging into Docker registry..."
-            echo "${{ secrets.DOCKER_PASSWORD }}" | sudo docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+            echo "Username: ${{ secrets.DOCKER_USERNAME }}"
+            echo "Password length: ${#DOCKER_PASSWORD}"
+            if echo "${{ secrets.DOCKER_PASSWORD }}" | sudo docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin; then
+              echo "Docker login successful"
+            else
+              echo "Docker login failed, trying alternative method..."
+              echo "${{ secrets.DOCKER_PASSWORD }}" | sudo docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin docker.io
+            fi
             echo "Pulling latest image..."
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/todobackend:latest
             echo "Stopping old container (if exists)..."
