@@ -47,10 +47,10 @@ jobs:
             # SSH into EC2 and run Docker commands
               ssh -o StrictHostKeyChecking=no -i private_key ${SSH_USER}@${SSH_HOST} '
                 # Example: Pull and run a Docker image
-                sudo docker pull your-docker-image:latest
-                sudo docker stop your-container-name || true # Stop if running
-                sudo docker rm your-container-name || true  # Remove if exists
-                sudo docker run -d --name your-container-name -p 80:80 your-docker-image:latest
+                sudo docker pull ${{ secrets.DOCKER_USERNAME }}/todobackend:${{github.sha}} 
+                sudo docker stop todobackend || true # Stop if running
+                sudo docker rm todobackend || true  # Remove if exists
+                sudo docker run -d --name todobackend -p 8000:8000 ${{ secrets.DOCKER_USERNAME }}/todobackend:${{github.sha}} 
               '
               # Clean up the private key file
               rm private_key
