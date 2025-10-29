@@ -34,7 +34,7 @@ jobs:
           build-args: |
             DATABASE_URL=${{ secrets.DATABASE_URL }}
 
-   
+      
         uses: appleboy/ssh-action@v1.2.1
         with:
           host: ${{ secrets.EC2_HOST }}
