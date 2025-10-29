@@ -1,4 +1,4 @@
-name: Build and Push Docker Image
+name: deploy the frontend
 
 on:
   push:
