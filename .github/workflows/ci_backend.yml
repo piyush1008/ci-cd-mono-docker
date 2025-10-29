@@ -50,7 +50,7 @@ jobs:
                 sudo docker pull ${{ secrets.DOCKER_USERNAME }}/todobackend:${{github.sha}} 
                 sudo docker stop todobackend || true # Stop if running
                 sudo docker rm todobackend || true  # Remove if exists
-                sudo docker run -d --name todobackend -p 8000:8000 ${{ secrets.DOCKER_USERNAME }}/todobackend:${{github.sha}} 
+                sudo docker run -d --name todobackend -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/todobackend:${{github.sha}} 
               '
               # Clean up the private key file
               rm private_key
